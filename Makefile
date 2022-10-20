@@ -12,17 +12,14 @@ git-add:
 git-commit:
 	@echo "Commiting changes..."
 	read -p "Commit message: " msg; git commit -m "$$msg"
-	git commit -m "$$msg"
 
 git-push:
 	@echo "Pushing changes to remote..."
 	read -p "Branch name: " branch; git push origin $$branch
-	git push origin $$branch
 
 git pull:
 	@echo "Pulling changes from remote..."
 	read -p "Branch name: " branch; git pull origin $$branch
-	git pull origin $$branch
 
 
 # docker config
