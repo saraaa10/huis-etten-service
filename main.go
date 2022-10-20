@@ -23,6 +23,7 @@ import (
 func main() {
 	fmt.Println("Hello, World!")
 	db := constant.InitDB()
+	constant.AutoMigrate(db)
 
 	// User Type Repo & Service
 	userTypeRepo := userTypeRepoImpl.NewUserTypeRepository(db)
