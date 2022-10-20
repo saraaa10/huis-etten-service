@@ -1,13 +1,19 @@
 image: golang:1.19
 
+services:
+  - docker:dind
+
+variables:
+  TAG_LATEST: $CI_
+
 stages:
   - build
   - test
-  - deploy
+  - dev-deploy
 
 build:
   stage: build
-  image: golang:1.19.2-alpine3.16
+  image: docker:latest
   script:
     - go mod download
     - go mod verify
@@ -28,7 +34,7 @@ test:
     - develop
 
 deploy:
-  stage: deploy
+  stage: dev-deploy
   image: golang:1.19.2-alpine3.16
   script:
     - go build -o /src/app
