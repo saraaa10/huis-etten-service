@@ -3,6 +3,9 @@ package constant
 import (
 	"fmt"
 	"log"
+	entitiesUserType "service-api/app/core/user_type/entities"
+	entitiesTypeMenu "service-api/app/core/type_menu/entities"
+	entitiesCategoryMenu "service-api/app/core/category_menu/entities"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -24,4 +27,12 @@ func InitDB() *gorm.DB {
 	log.Println("Success Connect to Database")
 
 	return dsn
+}
+
+func AutoMigrate(db *gorm.DB) error {
+	return db.AutoMigrate(
+		&entitiesUserType.UserType{},
+		&entitiesTypeMenu.TypeMenu{},
+		&entitiesCategoryMenu.CategoryMenu{},
+	)
 }

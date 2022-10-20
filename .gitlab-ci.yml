@@ -1,0 +1,39 @@
+image: golang:1.19
+
+stages:
+  - build
+  - test
+  - deploy
+
+build:
+  stage: build
+  image: golang:1.19.2-alpine3.16
+  script:
+    - go mod download
+    - go mod verify
+  artifacts:
+    paths:
+      - /src/app
+  only:
+    - develop
+
+test:
+  stage: test
+  image: golang:1.19.2-alpine3.16
+  script:
+    - go test -v ./...
+  dependencies:
+    - build
+  only:
+    - develop
+
+deploy:
+  stage: deploy
+  image: golang:1.19.2-alpine3.16
+  script:
+    - go build -o /src/app
+    - ./src/app
+  dependencies:
+    - test
+  only:
+    - main
