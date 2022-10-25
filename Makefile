@@ -17,7 +17,7 @@ git-push:
 	@echo "Pushing changes to remote..."
 	read -p "Branch name: " branch; git push origin $$branch
 
-git pull:
+git-pull:
 	@echo "Pulling changes from remote..."
 	read -p "Branch name: " branch; git pull origin $$branch
 

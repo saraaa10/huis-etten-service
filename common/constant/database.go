@@ -6,6 +6,7 @@ import (
 	entitiesUserType "service-api/app/core/user_type/entities"
 	entitiesTypeMenu "service-api/app/core/type_menu/entities"
 	entitiesCategoryMenu "service-api/app/core/category_menu/entities"
+	entitiesMenu "service-api/app/core/menu/entities"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -34,5 +35,6 @@ func AutoMigrate(db *gorm.DB) error {
 		&entitiesUserType.UserType{},
 		&entitiesTypeMenu.TypeMenu{},
 		&entitiesCategoryMenu.CategoryMenu{},
+		&entitiesMenu.Menu{},
 	)
 }

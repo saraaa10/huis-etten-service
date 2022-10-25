@@ -2,10 +2,14 @@ package main
 
 import (
 	"fmt"
+
+	// routes & handler
 	categorymenu "service-api/app/api/handlers/category_menu"
+	menu "service-api/app/api/handlers/menu"
 	typemenu "service-api/app/api/handlers/type_menu"
 	usertype "service-api/app/api/handlers/user_type"
 
+	// repo & service
 	userTypeRepoImpl "service-api/app/core/user_type/repositories/impl"
 	userTypeServiceImpl "service-api/app/core/user_type/services/impl"
 
@@ -15,6 +19,10 @@ import (
 	typeMenuRepoImpl "service-api/app/core/type_menu/repositories/impl"
 	typeMenuServiceImpl "service-api/app/core/type_menu/services/impl"
 
+	menuRepoImpl "service-api/app/core/menu/repositories/impl"
+	menuServiceImpl "service-api/app/core/menu/services/impl"
+
+	// others
 	"service-api/common/constant"
 
 	"github.com/gin-gonic/gin"
@@ -37,6 +45,10 @@ func main() {
 	typeMenuRepo := typeMenuRepoImpl.NewTypeMenuRepository(db)
 	typeMenuService := typeMenuServiceImpl.NewTypeMenuService(typeMenuRepo)
 
+	// menu Repo & Service
+	menuRepo := menuRepoImpl.NewMenuRepository(db)
+	menuService := menuServiceImpl.NewMenuService(menuRepo)
+
 	// router api/V1 Configuration
 	router := gin.Default()
 	api := router.Group("/api/v1")
@@ -44,7 +56,16 @@ func main() {
 		usertype.NewUserTypeRoutes(api, userTypeService)
 		categorymenu.NewCategoryMenuRoutes(api, categoryMenuService)
 		typemenu.NewTypeMenuRoutes(api, typeMenuService)
+		menu.NewMenuRoutes(api, menuService)
 	}
 
+	// ping request
+	api.GET("/", func(ctx *gin.Context) {
+		ctx.JSON(200, gin.H{
+			"message": "Welcome to service-api",
+		})
+	})
+
+	// Run Server
 	router.Run(":8080")
 }
