@@ -26,3 +26,13 @@ func (repo *userTypeRepository) FindAll() ([]entities.UserType, error) {
 
 	return userTypes, nil
 }
+
+func (repo *userTypeRepository) FindUserTypeById(id uint) (entities.UserType, error) {
+	var userType entities.UserType
+	err := repo.db.Where("id = ?", id).Find(&userType).Error
+	if err != nil {
+		return userType, err
+	}
+
+	return userType, nil
+}

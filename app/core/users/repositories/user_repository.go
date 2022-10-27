@@ -1,7 +1,12 @@
 package repositories
 
-import "service-api/app/core/users/entities"
+import (
+	users "service-api/app/core/users/entities"
+)
 
 type UserRepository interface {
-	FindAll() ([]entities.User, error)
+	FindAll() ([]users.User, error)
+	Save(user users.User) (users.User, error)
+	FindByEmail(email string) (users.User, error)
+	FindByID(id uint) (users.User, error)
 }

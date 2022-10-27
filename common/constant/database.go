@@ -3,6 +3,7 @@ package constant
 import (
 	"fmt"
 	"log"
+	entitiesUser "service-api/app/core/users/entities"
 	entitiesUserType "service-api/app/core/user_type/entities"
 	entitiesTypeMenu "service-api/app/core/type_menu/entities"
 	entitiesCategoryMenu "service-api/app/core/category_menu/entities"
@@ -32,6 +33,7 @@ func InitDB() *gorm.DB {
 
 func AutoMigrate(db *gorm.DB) error {
 	return db.AutoMigrate(
+		&entitiesUser.User{},
 		&entitiesUserType.UserType{},
 		&entitiesTypeMenu.TypeMenu{},
 		&entitiesCategoryMenu.CategoryMenu{},

@@ -16,7 +16,7 @@ func NewMenuRepository(db *gorm.DB) *menuRepository {
 
 func (r *menuRepository) FindAll() ([]entities.Menu, error) {
 	var menus []entities.Menu
-	err := r.db.Find(&menus).Error
+	err := r.db.Preload("Type").Find(&menus).Error
 	if err != nil {
 		return nil, err
 	}

@@ -6,4 +6,5 @@ import (
 
 type UserTypeRepository interface {
 	FindAll() ([]entities.UserType, error)
+	FindUserTypeById(id uint) (entities.UserType, error)
 }
